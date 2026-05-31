@@ -136,7 +136,7 @@ async function analyze() {
     formData.append("resume_text", resumeText);
     formData.append("job_description", jobDescription);
 
-    const response = await fetch("http://127.0.0.1:8000/analyze", {
+    const response = await fetch("https://resume-matcher-backend-7o7n.onrender.com/analyze", {
       method: "POST",
       body: formData,
     });
