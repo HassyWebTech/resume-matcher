@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ResumeMatch AI</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <nav>
+    <div class="nav-brand">ResumeMatch <span>AI</span></div>
+    <div class="nav-links">
+      <a href="#analyzer">Try It</a>
+      <a href="#how">How It Works</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-badge">Powered by Gemini AI</div>
+    <h1>Know Exactly Where <br/>You Stand</h1>
+    <p class="hero-sub">Upload your resume, paste a job description, and get an instant AI-powered match analysis — skills matched, gaps identified, advice given.</p>
+    <a href="#analyzer" class="btn-primary">Analyze My Resume</a>
+  </section>
+
+  <section class="how" id="how">
+    <h2>How It Works</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h3>Upload Resume</h3>
+        <p>Paste your resume text into the analyzer below.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h3>Add Job Description</h3>
+        <p>Copy and paste the job description you are targeting.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h3>Get Your Analysis</h3>
+        <p>Receive a match score, skill gaps, and honest recommendations.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="analyzer" id="analyzer">
+    <h2>Resume Analyzer</h2>
+    <p class="analyzer-sub">Paste your resume and job description below to get started.</p>
+
+    <div class="form-grid">
+      <div class="form-group">
+  <label>Your Resume</label>
+  <div class="upload-area" id="uploadArea">
+    <i>📄</i>
+    <p>Drop your resume here or <span class="upload-link" onclick="document.getElementById('resumeFile').click()">browse</span></p>
+    <p class="upload-sub">Supports PDF, DOCX, or plain text</p>
+    <input type="file" id="resumeFile" accept=".pdf,.docx,.txt" style="display:none" onchange="handleFileUpload(event)" />
+  </div>
+  <p class="or-divider">or paste text below</p>
+  <textarea id="resumeText" placeholder="Paste your resume text here..."></textarea>
+</div>
+      <div class="form-group">
+        <label>Job Description</label>
+        <textarea id="jobDescription" placeholder="Paste the job description here..."></textarea>
+      </div>
+    </div>
+
+    <button class="btn-primary" id="analyzeBtn" onclick="analyze()">Analyze Match</button>
+
+    <div class="results" id="results" style="display:none;">
+      <div class="score-card">
+        <div class="score-label">Match Score</div>
+        <div class="score-value" id="matchScore">0%</div>
+      </div>
+
+      <div class="result-grid">
+        <div class="result-box green">
+          <h3>Matched Skills</h3>
+          <ul id="matchedSkills"></ul>
+        </div>
+        <div class="result-box red">
+          <h3>Missing Skills</h3>
+          <ul id="missingSkills"></ul>
+        </div>
+      </div>
+
+      <div class="result-box">
+        <h3>Your Strengths</h3>
+        <p id="strengths"></p>
+      </div>
+
+      <div class="result-box">
+        <h3>Recommendation</h3>
+        <p id="recommendation"></p>
+      </div>
+    </div>
+
+    <div class="loading" id="loading" style="display:none;">
+      <div class="spinner"></div>
+      <p>Analyzing your resume...</p>
+    </div>
+
+    <div class="error" id="error" style="display:none;"></div>
+  </section>
+
+  <footer>
+    <p>Built by <strong>Hassan Yakubu</strong> · AI Systems Engineer</p>
+    <p class="footer-sub">Powered by Gemini AI + FastAPI + Python</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
