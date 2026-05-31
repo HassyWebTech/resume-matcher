@@ -13,10 +13,10 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["https://resume-matcher-dusky.vercel.app"],
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
-    allow_credentials=True,
 )
 
 @app.post("/analyze")
