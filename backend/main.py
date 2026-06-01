@@ -19,12 +19,17 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get("/")
+def root():
+    return {"status": "ok"}
+
 @app.post("/analyze")
 async def analyze_resume(
     resume_text: str = Form(...),
     job_description: str = Form(...)
 ):
-    prompt = f"""
+    try:
+        prompt = f"""
 You are an expert technical recruiter and AI career advisor.
 
 Analyze the following resume against the job description and return ONLY a JSON object with no extra text, no markdown, no backticks.
@@ -45,18 +50,20 @@ Return this exact JSON structure:
 }}
 """
 
-    response = client.models.generate_content(
-        model="gemini-2.5-flash",
-        contents=prompt
-    )
+        response = client.models.generate_content(
+            model="gemini-2.5-flash",
+            contents=prompt
+        )
 
-    raw = response.text.strip()
+        raw = response.text.strip()
 
-    if raw.startswith("```"):
-        raw = raw.split("```")[1]
-        if raw.startswith("json"):
-            raw = raw[4:]
+        if raw.startswith("```"):
+            raw = raw.split("```")[1]
+            if raw.startswith("json"):
+                raw = raw[4:]
 
-    result = json.loads(raw)
+        result = json.loads(raw)
+        return result
 
-    return result
+    except Exception as e:
+        return {"error": str(e)}, 500
